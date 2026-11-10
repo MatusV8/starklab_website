@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+/* Dark canvas matching the hero video — navy ground, neon cyan accent */
+--background: 213 62% 5%;         /* #050A14 */
+--foreground: 193 55% 93%;        /* #E3F2F7 */
+
+--card: 216 53% 10%;             /* #0C1727 */
+--card-foreground: 193 55% 93%;
+
+--popover: 213 52% 9%;
+--popover-foreground: 193 55% 93%;
+
+--primary: 187 100% 50%;          /* #00E5FF neon cyan */
+--primary-foreground: 213 62% 5%;
+
+--secondary: 212 52% 13%;         /* #102132 */
+--secondary-foreground: 193 55% 93%;
+
+--muted: 212 52% 13%;
+--muted-foreground: 196 25% 66%;
+
+--accent: 212 52% 13%;
+--accent-foreground: 193 55% 93%;
+
+--destructive: 0 72% 55%;
+--destructive-foreground: 0 0% 98%;
+
+--border: 197 48% 20%;            /* #1A3A4A */
+--input: 197 48% 20%;
+--ring: 187 100% 50%;
+
+--radius: 1.125rem;
+--radius-sm: calc(1.125rem - 4px);
+--radius-lg: calc(1.125rem + 4px);
+--radius-full: 9999px;
+
+--spacing-xs: 4px;
+--spacing-sm: 8px;
+--spacing-md: 16px;
+--spacing-lg: 24px;
+--spacing-xl: 32px;
+--spacing-2xl: 48px;
+--spacing-3xl: 64px;
+
+/* On dark, elevation is a glow rather than a drop shadow */
+--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+--shadow-md: 0 2px 4px 0 rgba(0, 0, 0, 0.5), 0 8px 24px -10px rgba(0, 229, 255, 0.14);
+--shadow-lg: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 20px 48px -14px rgba(0, 229, 255, 0.20);
+
+--duration-fast: 150ms;
+--duration-normal: 250ms;
+--duration-slow: 350ms;
+
+--chart-1: 187 100% 50%;
+--chart-2: 193 55% 93%;
+--chart-3: 196 25% 66%;
+--chart-4: 173 58% 45%;
+--chart-5: 212 52% 13%;
+  }
+
+  /* Force light mode only */
+  .dark {
+   /* Dark canvas matching the hero video — navy ground, neon cyan accent */
+   --background: 213 62% 5%;         /* #050A14 */
+   --foreground: 193 55% 93%;        /* #E3F2F7 */
+
+   --card: 216 53% 10%;             /* #0C1727 */
+   --card-foreground: 193 55% 93%;
+
+   --popover: 213 52% 9%;
+   --popover-foreground: 193 55% 93%;
+
+   --primary: 187 100% 50%;          /* #00E5FF neon cyan */
+   --primary-foreground: 213 62% 5%;
+
+   --secondary: 212 52% 13%;         /* #102132 */
+   --secondary-foreground: 193 55% 93%;
+
+   --muted: 212 52% 13%;
+   --muted-foreground: 196 25% 66%;
+
+   --accent: 212 52% 13%;
+   --accent-foreground: 193 55% 93%;
+
+   --destructive: 0 72% 55%;
+   --destructive-foreground: 0 0% 98%;
+
+   --border: 197 48% 20%;            /* #1A3A4A */
+   --input: 197 48% 20%;
+   --ring: 187 100% 50%;
+   --chart-1: 187 100% 50%;
+   --chart-2: 193 55% 93%;
+   --chart-3: 196 25% 66%;
+   --chart-4: 173 58% 45%;
+   --chart-5: 212 52% 13%;
+  }
+}
+
+@layer components {
+  /* Card surface used across the site: the fill melts into the band and a
+     hairline border (white/7) draws the edge — Linear-style seamless look.
+     !important on the hover lift so it wins over framer-motion's inline
+     `transform: none` left on the element after its entrance animation. */
+  .surface {
+    @apply bg-[#0C1727] rounded-[18px] ring-1 ring-white/[0.07] shadow-[var(--shadow-sm)];
+  }
+  .surface-hover {
+    @apply transition-[box-shadow,transform] duration-300;
+  }
+  .surface-hover:hover {
+    /* Keep the ring in the composed box-shadow so the hairline doesn't
+       disappear while the md shadow (lift + glow) fades in. */
+    box-shadow:
+      var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000),
+      var(--shadow-md) !important;
+    transform: translateY(-0.125rem) !important;
+  }
+  /* Small uppercase label above headings */
+  /* Shared text sizes for cards across all pages — change them here.
+     type-card-title:    list/grid cards (events, publications, research,
+                         vacancies, journal club papers)   18px
+     type-card-title-sm: compact cards (members, home-page strips,
+                         contact)                        16px
+     type-card-body:     card descriptions/authors/details 14px → 15px on sm+
+     Small labels (dates, venues, "View details") use plain text-xs (12px). */
+  .type-card-title {
+    @apply font-display text-lg font-semibold leading-snug;
+  }
+  .type-card-title-sm {
+    @apply font-display text-base font-semibold leading-snug;
+  }
+  .type-card-body {
+    @apply text-sm sm:text-[15px] leading-relaxed;
+  }
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.16em] text-[#6E7179];
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00E5FF] text-[#050A14] text-sm font-medium transition-colors hover:bg-[#5CEFFF];
+  }
+  .btn-accent {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00E5FF] text-white text-sm font-medium transition-colors hover:bg-[#5CEFFF];
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#1A3A4A] bg-[#0B1524] text-[#E3F2F7] text-sm font-medium transition-colors hover:bg-[#081019];
+  }
+}
+
+@keyframes fadeinup {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeinup {
+  animation: fadeinup 0.4s ease forwards;
+  opacity: 0; /* prevents flash before animation starts */
+}
+
+/* Suppress hydration errors */
+[data-hydration-error] {
+  display: none !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar-track {
+  background: #050A14;
+}
+::-webkit-scrollbar-thumb {
+  background: #1A3A4A;
+  border-radius: 999px;
+  border: 3px solid #050A14;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2E6377;
+}
